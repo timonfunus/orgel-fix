@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    function loadTrack(index) {
+    function loadTrack(index, autoplay = false) {
         if (index >= 0 && index < playlist.length) {
             currentTrackIndex = index;
             audio.src = playlist[index].source;
@@ -34,12 +34,24 @@ document.addEventListener('DOMContentLoaded', function () {
             const circleLength = 2 * Math.PI * parseFloat(durationCircle.getAttribute('r'));
 
             durationCircle.style.strokeDashoffset = circleLength;
-            playPauseButton.setAttribute('aria-pressed', 'false');
-            playPauseButton.setAttribute('aria-label', 'Play audio');
+
+            if (!autoplay) {
+                playPauseButton.setAttribute('aria-pressed', 'false');
+                playPauseButton.setAttribute('aria-label', 'Play audio');
+            } else {
+                playPauseButton.setAttribute('aria-pressed', 'true');
+                playPauseButton.setAttribute('aria-label', 'Pause audio');
+            }
+
             document.querySelector('#current-time').textContent = '0:00';
 
             // Load metadata to update duration display
             audio.load();
+
+            // If autoplay is requested, start playing after loading
+            if (autoplay) {
+                audio.play();
+            }
         }
     }
 
@@ -100,11 +112,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const backButton = document.querySelector('#back');
 
         nextButton.addEventListener('click', function () {
-            loadTrack((currentTrackIndex + 1) % playlist.length);
+            const isPlaying = playPauseButton.getAttribute('aria-pressed') === 'true';
+            loadTrack((currentTrackIndex + 1) % playlist.length, isPlaying);
         });
 
         backButton.addEventListener('click', function () {
-            loadTrack((currentTrackIndex - 1 + playlist.length) % playlist.length);
+            const isPlaying = playPauseButton.getAttribute('aria-pressed') === 'true';
+            loadTrack((currentTrackIndex - 1 + playlist.length) % playlist.length, isPlaying);
         });
 
         // Audio event listeners
@@ -130,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
             currentTimeDisplay.textContent = '0:00';
 
             // Auto-play next track when current track ends
-            loadTrack((currentTrackIndex + 1) % playlist.length);
+            loadTrack((currentTrackIndex + 1) % playlist.length, true);
         });
     }
 
