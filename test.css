@@ -1,85 +1,103 @@
 #audio-player {
-  width: 24em;
-  margin: 2em auto;
-  display: grid;
-  grid-template-columns: 16em 8em;
-  border: thin solid;
-  #display {
-    aspect-ratio: 1 / 1;
+    width: 24em;
+    margin: 2em auto;
     display: grid;
-    position: relative;
-    svg {
-      grid-area: 1 /1;
+    grid-template-columns: 16em 8em;
+    border: thin solid;
+
+    #display {
+        aspect-ratio: 1 / 1;
+        display: grid;
+        position: relative;
+
+        svg {
+            grid-area: 1 /1;
+        }
+
+        #background {
+            fill: none;
+            stroke: silver;
+            stroke-width: 3;
+        }
+
+        #duration {
+            fill: none;
+            stroke: steelBlue;
+            stroke-width: 3;
+            rotate: -0.25turn;
+        }
+
+        [for="play-pause-icon"] {
+            color: transparent;
+        }
+
+        #play-pause-icon {
+            width: 3em;
+            aspect-ratio: 1 / 1;
+            place-self: center;
+            position: absolute;
+            border: none;
+            transition: all 1s;
+        }
+
+        #play-pause-icon:hover {
+            filter: brightness(1.1);
+            scale: 1.1;
+        }
     }
-    #background {
-      fill: none;
-      stroke: silver;
-      stroke-width: 3;
-    }
-    #duration {
-      fill: none;
-      stroke: steelBlue;
-      stroke-width: 3;
-      rotate: -0.25turn;
-    }
-    [for="play-pause-icon"] {
-      color: transparent;
-    }
-    #play-pause-icon {
-      width: 3em;
-      aspect-ratio: 1 / 1;
-      place-self: center;
-      position: absolute;
-      border: none;
-      transition: all 1s;
-    }
-    #play-pause-icon:hover {
-      filter: brightness(1.1);
-      scale: 1.1;
-    }
-  }
-  [aria-pressed=false],
-  #next {
-    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cpath d='M35,10 l90,70 -90,70z' style='fill:%23c60b0b;stroke:%23c60b0b; stroke-width:19;stroke-linejoin:round;'/%3E%3C/svg%3E");
-  }
-  [aria-pressed=true] {
-    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect x='25' y='0' width='45' height='160' rx='10' style='fill:%23c60b0b;'/%3E%3Crect x='90' y='0' width='45' height='160' rx='10' style='fill:%23c60b0b;'/%3E%3C/svg%3E");
-  }
-  p {
-    grid-area: 1 / 1;
-    text-align: center;
-    place-self: end center;
-    margin-bottom: 0;
-  }
-  #controls {
-    grid-area: 2/2;
-    button {
-      display: inline-block;
-      width: 2em;
-      aspect-ratio: 1 / 1;
-      border: none;
-      transition: all 1s;
-    }
-    #back {
-      scale: -1 1;
-    }
+
+    [aria-pressed=false],
     #next {
-      float: right;
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cpath d='M35,10 l90,70 -90,70z' style='fill:%23c60b0b;stroke:%23c60b0b; stroke-width:19;stroke-linejoin:round;'/%3E%3C/svg%3E");
     }
-  }
-  #playlist background: pink;
-  button {
-    background: none;
-    bordeR: none;
-  }
-  [aria-selected] {
-    background: #337599;
-    color: white;
-  }
+
+    [aria-pressed=true] {
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Crect x='25' y='0' width='45' height='160' rx='10' style='fill:%23c60b0b;'/%3E%3Crect x='90' y='0' width='45' height='160' rx='10' style='fill:%23c60b0b;'/%3E%3C/svg%3E");
+    }
+
+    p {
+        grid-area: 1 / 1;
+        text-align: center;
+        place-self: end center;
+        margin-bottom: 0;
+    }
+
+    #controls {
+        grid-area: 2/2;
+
+        button {
+            display: inline-block;
+            width: 2em;
+            aspect-ratio: 1 / 1;
+            border: none;
+            transition: all 1s;
+        }
+
+        #back {
+            scale: -1 1;
+        }
+
+        #next {
+            float: right;
+        }
+    }
+
+    #playlist {
+      background-color: pink;
+    }
+
+    button {
+        background: none;
+        bordeR: none;
+    }
+
+    [aria-selected] {
+        background: #337599;
+        color: white;
+    }
 }
 
 body {
-  max-width: 55em;
-  margin: 0 auto;
+    max-width: 55em;
+    margin: 0 auto;
 }
-
